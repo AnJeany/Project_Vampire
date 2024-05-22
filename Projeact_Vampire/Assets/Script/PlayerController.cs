@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Vector2 moveMent;
+    private Vector2 movement;
     private float speed = 8f;
     private bool isFacingRight = true;
 
@@ -30,8 +30,8 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        moveMent.x = Input.GetAxisRaw("Horizontal");
-        moveMent.y = Input.GetAxisRaw("Vertical");
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
@@ -50,14 +50,14 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        Vector2 direction = moveMent.normalized;
+        Vector2 direction = movement.normalized;
         rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
     }
 
 
     private void Flip()
     {
-        if (isFacingRight && moveMent.x < 0f || !isFacingRight && moveMent.x > 0f)
+        if (isFacingRight && movement.x < 0f || !isFacingRight && movement.x > 0f)
         {
             Vector3 localScale = transform.localScale;
             isFacingRight = !isFacingRight;
@@ -93,5 +93,7 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+        //bat tu tat boxcolider
+        //ani bat tu to alpha
     }
 }

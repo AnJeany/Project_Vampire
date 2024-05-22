@@ -3,7 +3,7 @@
 
 //public class PlayerMovement : MonoBehaviour
 //{
-//    private float moveMent;
+//    private float movement;
 //    private float speed = 8f;
 //    private float jumpingPower = 16f;
 //    private bool isFacingRight = true;
@@ -31,7 +31,7 @@
 //            return;
 //        }
 
-//        moveMent = Input.GetAxisRaw("Horizontal");
+//        movement = Input.GetAxisRaw("Horizontal");
 
 //        if (Input.GetButtonDown("Jump") && IsGrounded())
 //        {
@@ -58,7 +58,7 @@
 //            return;
 //        }
 
-//        rb.velocity = new Vector2(moveMent * speed, rb.velocity.y);
+//        rb.velocity = new Vector2(movement * speed, rb.velocity.y);
 //    }
 
 //    private bool IsGrounded()
@@ -68,7 +68,7 @@
 
 //    private void Flip()
 //    {
-//        if (isFacingRight && moveMent < 0f || !isFacingRight && moveMent > 0f)
+//        if (isFacingRight && movement < 0f || !isFacingRight && movement > 0f)
 //        {
 //            Vector3 localScale = transform.localScale;
 //            isFacingRight = !isFacingRight;
