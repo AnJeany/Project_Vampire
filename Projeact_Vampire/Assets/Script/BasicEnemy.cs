@@ -13,7 +13,15 @@ public class BasicEnemy : MonoBehaviour
     [SerializeField] private float radius;
     [SerializeField] private float distance;
     [SerializeField] private LayerMask collisionLayer;//layer doi tuong muon ktr  
+    [SerializeField] private float maxHp = 10;
+    [SerializeField] private float curentHp = 10;
+    [SerializeField] private float damage = 10f;
+    [SerializeField] private float attackCoolDown;
+
+    private bool canAttack = true;
+
     GameObject targetGameObject;
+    [SerializeField] Character targetCharacter;
     GameObject enemy;
     Rigidbody2D rb;
 
@@ -41,20 +49,15 @@ public class BasicEnemy : MonoBehaviour
         }
 
         CheckCollision();
-
     }
 
     public void CheckCollision()
     {
         RaycastHit2D hit = Physics2D.CircleCast(transform.position,radius, direction, distance,collisionLayer);
-        if (hit.collider != null)
+        if (hit.collider != null && canAttack)
         {
             Attack();
-        }
-        else
-        {
-            // Không có va chạm
-            Debug.Log("Không có va chạm");
+
         }
     }
     void OnDrawGizmos()
@@ -71,7 +74,26 @@ public class BasicEnemy : MonoBehaviour
 
     private void Attack()
     {
-        Debug.Log("Is attacking");
+        targetCharacter.TakeDamage(damage);
+        canAttack = false;
+        StartCoroutine(AttackCoolDown());
+    }
+
+    public void TakeDamage(int damage)
+    {
+        curentHp -= damage;
+        if (curentHp <= 0)
+        {
+            Destroy(gameObject);
+        }
+        
+    }
+
+    IEnumerator AttackCoolDown ()
+    {
+
+        yield return new WaitForSeconds(attackCoolDown);
+        canAttack = true;
     }
 
 }
